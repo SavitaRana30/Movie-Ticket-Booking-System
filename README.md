@@ -1,8 +1,8 @@
-# TCS-504 Movie Ticket Booking System
+# Movie Ticket Booking System
 
-A menu-driven **C++ console application** for a single cinema, created for **B.Tech CSE Semester 5 — System Design (TCS-504), Assignment 1**.
+A menu-driven **C++ console application** for a single cinema, created for **System Design (TCS-504), Assignment 1**.
 
-## Assignment scope
+##  Project Scope
 
 The project implements exactly the required core features:
 
@@ -53,7 +53,7 @@ TCS504-Movie-Ticket-Booking-System/
 
 ## Important course-rule note
 
-The assignment requires **one class per file and no header files**.
+The project requires **one class per file and no header files**.
 
 Normally, a C++ project would use `.h/.hpp` files. To obey the course rule while keeping the repository compilable, `src/main.cpp` includes the class `.cpp` files in dependency order.
 
@@ -99,6 +99,3 @@ Mermaid sources are in `docs/`.
 
 GitHub can render Mermaid diagrams directly when pasted into Markdown fenced blocks using `mermaid`.
 
-## Academic-use note
-
-Use this repository as your implementation base and make sure you understand the design, relationships, and code before submitting or presenting it.
