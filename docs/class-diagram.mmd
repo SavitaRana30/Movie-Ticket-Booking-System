@@ -1,0 +1,116 @@
+classDiagram
+direction LR
+
+class Movie {
+  -string title
+  -string language
+  -int durationMinutes
+  +getTitle() string
+  +getLanguage() string
+  +getDurationMinutes() int
+}
+
+class Seat {
+  -int number
+  -SeatType type
+  +getNumber() int
+  +getType() SeatType
+  +getTypeName() string
+}
+
+class Screen {
+  -int screenNumber
+  -vector~Seat~ seats
+  +addSeat(Seat)
+  +getSeats() vector~Seat~
+}
+
+class Cinema {
+  -string name
+  -vector~Screen~ screens
+  +addScreen(Screen)
+  +getScreens() vector~Screen~
+}
+
+class ShowSeat {
+  -Seat seat
+  -SeatStatus seatStatus
+  +holdSeat() bool
+  +confirmSeat() bool
+  +releaseSeat()
+}
+
+class Show {
+  -int showId
+  -Movie* movie
+  -Screen* screen
+  -string startTime
+  -vector~ShowSeat~ showSeats
+  +findShowSeat(int) ShowSeat*
+  +displaySeatLayout()
+}
+
+class Customer {
+  -string name
+  -string phone
+}
+
+class Booking {
+  -static int nextBookingId
+  -int bookingId
+  -Customer customer
+  -Show* show
+  -vector~ShowSeat*~ bookedSeats
+  -double bookingAmount
+  -BookingStatus status
+  +confirm()
+  +cancel()
+}
+
+class Payment {
+  <<abstract>>
+  +pay(double) bool*
+  +getMethodName() const char**
+}
+
+class UpiPayment {
+  +pay(double) bool
+}
+
+class CardPayment {
+  +pay(double) bool
+}
+
+class CashPayment {
+  +pay(double) bool
+}
+
+class PriceCalculator {
+  +calculateTotal(vector~ShowSeat*~) double
+}
+
+class TicketPrinter {
+  +print(Booking, Payment)
+}
+
+class BookingService {
+  -PriceCalculator priceCalculator
+  -TicketPrinter ticketPrinter
+  +bookTickets(Customer, Show, seats, Payment) Booking*
+  +cancelBooking(int) bool
+}
+
+Cinema "1" *-- "1..*" Screen : owns
+Screen "1" *-- "1..*" Seat : owns
+Show "1" o-- "1" Movie : uses
+Show "1" o-- "1" Screen : uses
+Show "1" *-- "1..*" ShowSeat : owns
+Booking --> Customer : associated with
+Booking "1" o-- "1..*" ShowSeat : references
+BookingService --> Booking : manages
+BookingService --> Payment : uses
+BookingService --> PriceCalculator : uses
+BookingService --> TicketPrinter : uses
+Payment <|-- UpiPayment
+Payment <|-- CardPayment
+Payment <|-- CashPayment

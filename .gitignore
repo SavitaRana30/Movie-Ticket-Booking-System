@@ -1,0 +1,7 @@
+movie_booking
+movie_booking.exe
+*.out
+*.o
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,22 @@
+#include <string>
+using namespace std;
+
+class Movie {
+private:
+    string title;
+    string language;
+    int durationMinutes;
+
+public:
+    Movie() : title(""), language(""), durationMinutes(0) {}
+
+    Movie(string title, string language, int durationMinutes) {
+        this->title = title;                 // OOP: this keyword
+        this->language = language;
+        this->durationMinutes = durationMinutes;
+    }
+
+    string getTitle() const { return title; }
+    string getLanguage() const { return language; }
+    int getDurationMinutes() const { return durationMinutes; }
+};

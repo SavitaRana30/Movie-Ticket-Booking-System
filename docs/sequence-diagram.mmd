@@ -1,0 +1,49 @@
+sequenceDiagram
+actor Customer
+participant BookingService
+participant Show
+participant ShowSeat
+participant PriceCalculator
+participant Payment
+participant Booking
+participant TicketPrinter
+
+Customer->>BookingService: choose show + seat
+activate BookingService
+BookingService->>Show: findShowSeat(seatNumber)
+activate Show
+Show-->>BookingService: ShowSeat*
+deactivate Show
+
+BookingService->>ShowSeat: holdSeat()
+activate ShowSeat
+ShowSeat-->>BookingService: true
+deactivate ShowSeat
+
+BookingService->>PriceCalculator: calculateTotal(selectedSeats)
+activate PriceCalculator
+PriceCalculator-->>BookingService: totalAmount
+deactivate PriceCalculator
+
+BookingService->>Booking: <<create>> Booking(...)
+activate Booking
+Booking-->>BookingService: booking object
+deactivate Booking
+
+Note over BookingService,Payment: Payment object is created/selected as UPI
+BookingService->>Payment: pay(totalAmount)
+activate Payment
+Payment-->>BookingService: true
+deactivate Payment
+
+BookingService->>ShowSeat: confirmSeat()
+activate ShowSeat
+ShowSeat-->>BookingService: confirmed
+deactivate ShowSeat
+
+BookingService->>Booking: confirm()
+BookingService->>TicketPrinter: print(booking, payment)
+activate TicketPrinter
+TicketPrinter-->>Customer: ticket printed
+deactivate TicketPrinter
+deactivate BookingService
